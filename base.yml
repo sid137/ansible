@@ -1,0 +1,16 @@
+---
+- hosts: $hosts
+  sudo: yes
+  # accelerate: true 
+  vars_files:
+    - vars/server-essentials_vars.yml
+
+  tasks:
+    - include: server-essentials.yml
+    - include: security.yml
+    # - include: platform.yml
+    - include: finalize.yml
+
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted

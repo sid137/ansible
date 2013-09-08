@@ -1,0 +1,36 @@
+---
+- name: Copy aliases and helpers
+  copy: src=${item.src} dest=${item.dest} mode=0755 owner=root group=root
+  with_items:
+    - { src: files/aliases.sh, dest: /etc/profile.d/aliases.sh }
+    - { src: files/zaliases,   dest: /etc/zsh/zaliases }
+    - { src: files/zshrc.plus, dest: /etc/zsh/zshrc.plus }
+
+- name: Add global aliases to profile
+  lineinfile: dest=/etc/zsh/zprofile backup=yes 
+    line='. /etc/zsh/zaliases'
+    regexp='. /etc/zsh/zaliases' 
+
+- name: Add zsh aliases to profile
+  lineinfile: dest=/etc/zsh/zprofile backup=yes 
+    line='. /etc/zsh/zshrc.plus'
+    regexp='. /etc/zsh/zshrc.plus' 
+
+- name: Add zsh helpers to profile
+  lineinfile: dest=/etc/zsh/zprofile backup=yes 
+    line='. /etc/profile'
+    regexp='. /etc/profile' 
+
+- name: Create the user $user_name
+  user: name=$user_name password=$user_password shell=/bin/zsh generate_ssh_key=yes
+
+- name: Add user:$user_name to sudoers file
+  copy: content="%$user_name ALL=NOPASSWD:ALL" dest="/etc/sudoers.d/$user_name" validate='visudo -cf %s'
+        mode=0440 owner=root group=root
+
+- name: Copy ssh key for user:$user_name
+  copy: src=files/authorized_keys dest="/home/$user_name/.ssh/authorized_keys" 
+        mode=0600 owner=$user_name group=$user_group
+
+# - name: Copy ssh key for user:sid137
+#   authorized_key: user=sid137 key={{ lookup('file', '/Users/noli/.ssh/id_rsa.pub') }}

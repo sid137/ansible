@@ -1,0 +1,6 @@
+---
+- name: Add Postgres 9.2 repository
+  apt_repository: repo='ppa:pitti/postgresql'
+
+- name: Install postgres packages
+  apt: pkg=postgresql,postgresql-client,postgresql-contrib,postgresql-doc,libpq-dev

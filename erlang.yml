@@ -1,0 +1,3 @@
+---
+- name: Install erlang
+  apt: pkg=erlang,erlang-dev,erlang-tools,erlang-odbc

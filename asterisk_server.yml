@@ -1,0 +1,13 @@
+---
+- hosts: $hosts
+  sudo: yes
+  # accelerate: true 
+  vars_files:
+    - vars/asterisk_vars.yml
+
+  tasks:
+    - include: asterisk.yml
+
+  handlers:
+    - name: restart asterisk
+      service: name=asterisk state=restarted

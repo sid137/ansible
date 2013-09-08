@@ -1,0 +1,54 @@
+---
+user_name: sid137
+user_group: $user_name
+user_password: $5$rounds=80000$TwTTH53KEGFbgV0O$nQam8l1YTDtjLv01XDzRxST4I8SLu2oTuLDih7YFFA4
+
+server_packages:
+  - aptitude
+  - autoconf
+  - automake
+  - binutils-doc
+  - bison
+  - build-essential
+  - bzr
+  - coreutils
+  - curl
+  - debconf-utils
+  - flex
+  - g++
+  - git-core
+  - help2man
+  - libbz2-dev
+  - libc6
+  - libcurl4-openssl-dev
+  - libevent-dev
+  - libmcrypt-dev
+  - libncurses5-dev
+  - libpcre3
+  - libpcre3-dev
+  - libpcrecpp0
+  - libreadline5
+  - libssl-dev
+  - libssl0.9.8
+  - libtool
+  - libxml2
+  - libxml2-dev
+  - libxslt1-dev
+  - libxslt1.1
+  - mercurial
+  - ntp
+  - patch
+  - python-virtualenv
+  - screen
+  - software-properties-common
+  - ssl-cert
+  - subversion
+  - sudo
+  - unrar-free
+  - unzip
+  - vim-nox
+  - wget
+  - zlib1g
+  - zlib1g-dev
+  - zlibc
+  - zsh

@@ -1,0 +1,6 @@
+---
+- include: postgresql.yml
+- include: erlang.yml
+- include: golang.yml
+- include: nodejs.yml
+- include: ruby.yml

@@ -1,0 +1,55 @@
+---
+asterisk_user: asterisk
+asterisk_group: asterisk
+asterisk_source_root: /usr/src/asterisk-complete
+asterisk_samples: /etc/asterisk/samples
+
+asterisk_version: 11.5.1
+asterisk_repository: http://svn.asterisk.org/svn/asterisk/tags/$asterisk_version/
+asterisk_source: $asterisk_source_root/asterisk/$asterisk_version
+
+libpri_version: 1.4.14
+libpri_repository: http://svn.asterisk.org/svn/libpri/tags/$libpri_version/
+libpri_source: $asterisk_source_root/libpri/$libpri_version
+
+# dahdi_repository: http://svn.asterisk.org/svn/dahdi/linux-complete/tags/$dahdi_version/
+dahdi_version: 2.7.0+2.7.0
+dahdi_source: $asterisk_source_root/dahdi/$dahdi_version
+dahdi_archive: http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/releases/dahdi-linux-complete-$dahdi_version.tar.gz
+
+astagidir:      /var/lib/asterisk/agi-bin
+astdatadir:     /var/lib/asterisk
+astdbdir:       /var/lib/asterisk
+astetcdir:      /etc/asterisk
+astkeydir:      /var/lib/asterisk
+astlogdir:      /var/log/asterisk
+astmoddir:      /usr/lib/asterisk/modules
+astrundir:      /var/run/asterisk
+astsbindir:     /usr/sbin
+astspooldir:    /var/spool/asterisk
+astvarlibdir:   /var/lib/asterisk
+
+asterisk_directories:
+  - /var/lib/asterisk
+  - /var/spool/asterisk
+  - /var/log/asterisk
+  - /var/run/asterisk
+  - /etc/asterisk
+  - $asterisk_samples
+
+asterisk_packages:
+  - libgmime-2.6-dev
+  - libgmime-2.6-0
+  - libsrtp0
+  - libsrtp0-dev
+  - sox
+  - libsox-fmt-all
+  - speex
+  - ngrep
+  - fail2ban
+  - iptables
+  - snmp
+  - libsnmp-dev
+  - snmpd
+  - libiksemel-dev
+  - libssl-dev

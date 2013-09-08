@@ -1,0 +1,107 @@
+---
+- name: Disable multiarch support for ubuntu 12.10+
+  command: dpkg --remove-architecture i386
+
+- name: Run Aptitude Upgrade
+  apt: update_cache=yes force=yes upgrade=yes
+
+- name: install kernel headers
+  apt: pkg=linux-headers-${ansible_kernel}
+
+- name: Install Asterisk Packages
+  apt: pkg=$item
+  with_items: $asterisk_packages
+
+- name: Restart ntp
+  service: name=ntp state=restarted
+
+- name: Create Asterisk Group
+  group: name=$asterisk_group
+
+
+- name: Create Asterisk User
+  user: name=$asterisk_user comment='Asterisk PBX User' shell=/bin/zsh system=yes group=$asterisk_group
+
+- name: Add user:asterisk to sudoers file
+  copy: content="%$asterisk_user ALL=(ALL) ALL" dest="/etc/sudoers.d/$asterisk_user" validate='visudo -cf %s'
+        mode=0440 owner=root group=root
+
+- name: Set Debconf selections
+  copy: content="libvpb0 libvpb0/countrycode string 33" dest=/tmp/debconf.conf
+        mode=0644 owner=root group=root
+
+- name: Load debconf selections
+  shell: cat /tmp/debconf.conf | debconf-set-selections
+
+- name: download asterisk
+  subversion: repo=$asterisk_repository dest=$asterisk_source
+
+- name: download dahdi
+  subversion: repo=$dahdi_repository dest=$dahdi_source
+
+- name: download libpri
+  subversion: repo=$libpri_repository dest=$libpri_source
+
+# - name: Download Asterisk dependencies
+#   subversion: repo=${item.repo} dest=${item.dest}
+#   with_items:
+#     - { repo: $asterisk_repository, dest: $asterisk_source}
+#     - { repo: $dahdi_repository,    dest: $dahdi_source}
+#     - { repo: $libpri_repository,   dest: $libpri_source}
+
+- name: Set Asterisk source permissions
+  file: name=$asterisk_source_root state=directory recurse=true group=$asterisk_group owner=$asterisk_user
+
+- name: install asterisk module dependencies
+  shell: ./install_prereq install && ./install_prereq install-unpackaged && touch /var/log/.asterisk-prereqs.installed
+    chdir=$asterisk_source/contrib/scripts/ creates=/var/log/.asterisk-prereqs.installed 
+
+# - name: reboot the servers
+  # command: /sbin/reboot now
+
+
+
+## Tmp fix until dahdi 2.6.3 is released  ?????  2.7 is out now
+
+- name: remove dahdi tools
+  shell: rm -rf $dahdi_source/tools && touch /var/.asterisk.dahdi-tools.removed
+    creates=/var/.asterisk.dahdi-tools.removed
+
+- name: remove dahdi linux
+  shell: rm -rf $dahdi_source/linux && touch /var/.asterisk.dahdi-linux.removed
+    creates=/var/.asterisk.dahdi-linux.removed
+
+- name: dahdi tools git
+  git: repo=git://git.asterisk.org/dahdi/tools dest=$dahdi_source/tools
+
+- name: dahdi linux git
+  git: repo=git://git.asterisk.org/dahdi/linux dest=$dahdi_source/linux
+# End TMP fix
+
+
+- name: install dahdi
+  shell: make all && make install && make config && touch /var/log/.asterisk-dahdi.installed
+    chdir=$dahdi_source creates=/var/log/.asterisk-dahdi.installed
+
+- name: install libpri
+  shell: make install && touch /var/log/.asterisk-libpri.installed
+    chdir=$libpri_source creates=/var/log/.asterisk-libpri.installed
+
+- name: install asterisk
+  shell: ./configure --with-crypto --with-ssl --with-srtp && make full && make install && make config && make install-logrotate && make OVERWRITE=n samples && sed -i.bak 's/asterisk/#{asterisk_user}/g' /etc/udev/rules.d/dahdi.rules && touch /var/log/.asterisk.installed
+    chdir=$asterisk_source creates=/var/log/.asterisk.installed
+
+- name: create asterisk samples directory
+  file: path=$asterisk_samples group=$asterisk_group owner=$asterisk_user recurse=yes state=directory
+
+- name: vars
+  debug: msg="$asterisk_version $asterisk_repository $asterisk_source"
+
+- name: backup sample files
+  shell: mv -n /etc/asterisk/*.conf $asterisk_samples
+    creates=$asterisk_samples/asterisk.conf
+
+
+- name: set permissions for asterisk directories
+  file: path=$item group=$asterisk_group owner=$asterisk_user recurse=yes state=directory
+  with_items: $asterisk_directories

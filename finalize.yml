@@ -1,0 +1,6 @@
+---
+- name: install kernel headers
+  apt: pkg=linux-headers-${ansible_kernel}
+
+- name: reboot the servers
+  command: /sbin/reboot now
