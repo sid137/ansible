@@ -29,6 +29,8 @@ astsbindir:     /usr/sbin
 astspooldir:    /var/spool/asterisk
 astvarlibdir:   /var/lib/asterisk
 
+dahdi_dir:      /etc/dahdi
+
 asterisk_directories:
   - /var/lib/asterisk
   - /var/spool/asterisk

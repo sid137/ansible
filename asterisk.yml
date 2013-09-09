@@ -83,7 +83,13 @@
   shell: mv -n /etc/asterisk/*.conf $asterisk_samples
     creates=$asterisk_samples/asterisk.conf
 
+- name: upload dahdi modules
+  copy: src=files/asterisk/dahdi_modules dest=$dahdi_dir/modules
+  notify: restart dahdi
 
 - name: set permissions for asterisk directories
   file: path=$item group=$asterisk_group owner=$asterisk_user recurse=yes state=directory
   with_items: $asterisk_directories
+
+- name: start asterisk
+  service: asterisk start

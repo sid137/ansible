@@ -9,5 +9,5 @@
     - include: asterisk.yml
 
   handlers:
-    - name: restart asterisk
-      service: name=asterisk state=restarted
+    - name: restart dahdi
+      command: /etc/init.d/dahdi restart

@@ -19,11 +19,5 @@
 
 
   handlers:
-    - name: restart asterisk
-      service: name=asterisk state=restarted
-
-    - name: restart dahdi
-      command: /etc/init.d/dahdi restart
-
     - name: reload asterisk
       shell: asterisk -rx module reload
