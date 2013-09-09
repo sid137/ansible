@@ -3,6 +3,7 @@
   sudo: yes
   # accelerate: true 
   vars_files:
+    - vars/asterisk_config_vars.yml
     - vars/asterisk_vars.yml
 
   tasks:

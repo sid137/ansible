@@ -1,6 +1,4 @@
 ---
-asterisk_user: asterisk
-asterisk_group: asterisk
 asterisk_source_root: /usr/src/asterisk-complete
 asterisk_samples: /etc/asterisk/samples
 
@@ -17,26 +15,13 @@ dahdi_version: 2.7.0+2.7.0
 dahdi_source: $asterisk_source_root/dahdi/$dahdi_version
 dahdi_archive: http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/releases/dahdi-linux-complete-$dahdi_version.tar.gz
 
-astagidir:      /var/lib/asterisk/agi-bin
-astdatadir:     /var/lib/asterisk
-astdbdir:       /var/lib/asterisk
-astetcdir:      /etc/asterisk
-astkeydir:      /var/lib/asterisk
-astlogdir:      /var/log/asterisk
-astmoddir:      /usr/lib/asterisk/modules
-astrundir:      /var/run/asterisk
-astsbindir:     /usr/sbin
-astspooldir:    /var/spool/asterisk
-astvarlibdir:   /var/lib/asterisk
-
-dahdi_dir:      /etc/dahdi
 
 asterisk_directories:
-  - /var/lib/asterisk
-  - /var/spool/asterisk
-  - /var/log/asterisk
-  - /var/run/asterisk
-  - /etc/asterisk
+  - $astvarlibdir
+  - $astspooldir
+  - $astlogdir
+  - $astrundir
+  - $astetcdir
   - $asterisk_samples
 
 asterisk_packages:

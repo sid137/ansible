@@ -1,0 +1,17 @@
+---
+asterisk_user: asterisk
+asterisk_group: asterisk
+
+astagidir:      /var/lib/asterisk/agi-bin
+astdatadir:     /var/lib/asterisk
+astdbdir:       /var/lib/asterisk
+astetcdir:      /etc/asterisk
+astkeydir:      /var/lib/asterisk
+astlogdir:      /var/log/asterisk
+astmoddir:      /usr/lib/asterisk/modules
+astrundir:      /var/run/asterisk
+astsbindir:     /usr/sbin
+astspooldir:    /var/spool/asterisk
+astvarlibdir:   /var/lib/asterisk
+
+dahdi_dir:      /etc/dahdi

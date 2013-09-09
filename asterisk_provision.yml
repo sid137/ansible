@@ -3,7 +3,7 @@
   sudo: yes
   # accelerate: true 
   vars_files:
-    - vars/asterisk_vars.yml
+    - vars/asterisk_config_vars.yml
 
   tasks:
     - name: update asterisk.conf
