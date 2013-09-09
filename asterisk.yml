@@ -37,7 +37,11 @@
   subversion: repo=$asterisk_repository dest=$asterisk_source
 
 - name: download dahdi
-  subversion: repo=$dahdi_repository dest=$dahdi_source
+  get_url: url=$dahdi_archive dest=/tmp 
+
+- name: extract dahdi
+  shell: mkdir -p $dahdi_source  && tar -zxvf /tmp/dahdi-linux-complete-$dahdi_version.tar.gz -C $dahdi_source --strip 1
+    creates=$dahdi_source
 
 - name: download libpri
   subversion: repo=$libpri_repository dest=$libpri_source
@@ -60,25 +64,6 @@
   # command: /sbin/reboot now
 
 
-
-## Tmp fix until dahdi 2.6.3 is released  ?????  2.7 is out now
-
-- name: remove dahdi tools
-  shell: rm -rf $dahdi_source/tools && touch /var/.asterisk.dahdi-tools.removed
-    creates=/var/.asterisk.dahdi-tools.removed
-
-- name: remove dahdi linux
-  shell: rm -rf $dahdi_source/linux && touch /var/.asterisk.dahdi-linux.removed
-    creates=/var/.asterisk.dahdi-linux.removed
-
-- name: dahdi tools git
-  git: repo=git://git.asterisk.org/dahdi/tools dest=$dahdi_source/tools
-
-- name: dahdi linux git
-  git: repo=git://git.asterisk.org/dahdi/linux dest=$dahdi_source/linux
-# End TMP fix
-
-
 - name: install dahdi
   shell: make all && make install && make config && touch /var/log/.asterisk-dahdi.installed
     chdir=$dahdi_source creates=/var/log/.asterisk-dahdi.installed
@@ -88,14 +73,11 @@
     chdir=$libpri_source creates=/var/log/.asterisk-libpri.installed
 
 - name: install asterisk
-  shell: ./configure --with-crypto --with-ssl --with-srtp && make full && make install && make config && make install-logrotate && make OVERWRITE=n samples && sed -i.bak 's/asterisk/#{asterisk_user}/g' /etc/udev/rules.d/dahdi.rules && touch /var/log/.asterisk.installed
+  shell: ./configure --with-crypto --with-ssl --with-srtp && make full && make install && make config && make install-logrotate && make OVERWRITE=n samples && sed -i.bak 's/asterisk/$asterisk_user/g' /etc/udev/rules.d/dahdi.rules && touch /var/log/.asterisk.installed
     chdir=$asterisk_source creates=/var/log/.asterisk.installed
 
 - name: create asterisk samples directory
   file: path=$asterisk_samples group=$asterisk_group owner=$asterisk_user recurse=yes state=directory
-
-- name: vars
-  debug: msg="$asterisk_version $asterisk_repository $asterisk_source"
 
 - name: backup sample files
   shell: mv -n /etc/asterisk/*.conf $asterisk_samples

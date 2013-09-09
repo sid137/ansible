@@ -1,0 +1,28 @@
+[directories](!)
+astetcdir    => $astetcdir   
+astmoddir    => $astmoddir   
+astvarlibdir => $astvarlibdir
+astdbdir     => $astdbdir    
+astkeydir    => $astkeydir   
+astdatadir   => $astdatadir  
+astagidir    => $astagidir   
+astspooldir  => $astspooldir 
+astrundir    => $astrundir   
+astlogdir    => $astlogdir   
+astsbindir   => $astsbindir  
+
+
+[options]
+runuser                = $asterisk_user
+rungroup               = $asterisk_group
+autosystemname         = yes
+documentation_language = en_US
+maxcalls               = 100
+maxload                = 0.9
+maxfiles               = 1000000
+
+
+[compat]
+pbx_realtime = 1.6
+res_agi      = 1.6
+app_set      = 1.6

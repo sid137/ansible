@@ -2,6 +2,7 @@
 user_name: sid137
 user_group: $user_name
 user_password: $5$rounds=80000$TwTTH53KEGFbgV0O$nQam8l1YTDtjLv01XDzRxST4I8SLu2oTuLDih7YFFA4
+user_authorized_key: /Users/noli/.ssh/id_rsa.pub
 
 server_packages:
   - aptitude

@@ -1,0 +1,28 @@
+[directories](!)
+astetcdir => /etc/asterisk
+astmoddir => /usr/lib/asterisk/modules
+astvarlibdir => /var/lib/asterisk
+astdbdir => /var/lib/asterisk
+astkeydir => /var/lib/asterisk
+astdatadir => /var/lib/asterisk
+astagidir => /var/lib/asterisk/agi-bin
+astspooldir => /var/spool/asterisk
+astrundir => /var/run/asterisk
+astlogdir => /var/log/asterisk
+astsbindir => /usr/sbin
+
+
+[options]
+runuser=<%= asterisk_user %>
+rungroup=<%= asterisk_group %>
+autosystemname=yes
+documentation_language = en_US
+maxcalls=100
+maxload=0.9
+maxfiles=1000000
+
+
+[compat]
+pbx_realtime=1.6
+res_agi=1.6
+app_set=1.6

@@ -1,0 +1,29 @@
+---
+- hosts: $hosts
+  sudo: yes
+  # accelerate: true 
+  vars_files:
+    - vars/asterisk_vars.yml
+
+  tasks:
+    - name: update asterisk.conf
+      template: src=templates/asterisk.conf.j2 dest=$astetcdir/asterisk.conf owner=$asterisk_user group=$asterisk_group
+      notify:
+        - reload asterisk
+
+    - name: update configuration
+      copy: src=$item dest=$astetcdir owner=$asterisk_user group=$asterisk_group
+      with_fileglob: files/asterisk/*.conf
+      notify:
+        - reload asterisk
+
+
+  handlers:
+    - name: restart asterisk
+      service: name=asterisk state=restarted
+
+    - name: restart dahdi
+      command: /etc/init.d/dahdi restart
+
+    - name: reload asterisk
+      shell: asterisk -rx module reload
