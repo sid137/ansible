@@ -1,17 +1,18 @@
 ---
 - include: user.yml
 
-- name: Disable root login over ssh
-  command: sed -i.bak 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-  notify:
-    - restart ssh
+# - name: Disable root login over ssh
+#   lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+#   notify: restart ssh
 
 - name: Allow SSH Agent Forwarding
   lineinfile: dest=/etc/ssh/sshd_config backup=yes 
     line='AllowAgentForwarding yes'
     regexp='AllowAgentForwarding yes' 
-  notify:
-    - restart ssh
+  notify: restart ssh
+
+# - name: Make sure unattended-upgrades only installs from $ubuntu_release-security
+    # lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades regexp="$ubuntu_release-updates" state=absent
 
 
  # disable telnet
@@ -34,3 +35,46 @@
  # #   Logs
  # #
  # # http://www.linux-sxs.org/security/scheck.html
+
+# - name: Remove sudo group rights
+#     action: lineinfile dest=/etc/sudoers regexp="^%sudo" state=absent
+#  
+#   - name: Add deploy user to sudoers
+#     action: lineinfile dest=/etc/sudoers regexp="deploy ALL" line="deploy ALL=(ALL) ALL" state=present
+#  
+#   - name: Disallow password authentication
+#     action: lineinfile dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+#     notify: Restart ssh
+#  
+#   - name: Install unattended-upgrades
+#     action: apt pkg=unattended-upgrades state=present
+#  
+#   - name: Adjust APT update intervals
+#     action: copy src=config/apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+#  
+#   - name: Make sure unattended-upgrades only installs from $ubuntu_release-security
+#     action: lineinfile dest=/etc/apt/apt.conf.d/50unattended-upgrades regexp="$ubuntu_release-updates" state=absent
+#  
+#   - name: Copy debconf selections so that Postfix can configure itself non-interactively
+#     copy: src=config/postfix_selections  dest=/tmp/postfix_selections
+#  
+#   - name: Set up Postfix to relay mail
+#     action: command debconf-set-selections /tmp/postfix_selections
+#  
+#   - name: Install logwatch
+#     action: apt pkg=logwatch state=installed
+#  
+#   - name: Make logwatch mail $logwatch_email daily
+#     action: lineinfile dest=/etc/cron.daily/00logwatch regexp="^/usr/sbin/logwatch" line="/usr/sbin/logwatch --output mail --mailto $logwatch_email --detail high" state=present create=yes
+#  
+#   - name: Setup ufw
+#     action: shell ufw allow 22/tcp
+#  
+#   - name: Setup ufw
+#     action: shell ufw allow 443/tcp
+#  
+#   - name: Setup ufw
+#     action: shell ufw allow 60023/udp
+#  
+#   - name: Enable ufw
+#     action: shell echo 'y' | ufw enable

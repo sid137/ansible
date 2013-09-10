@@ -3,4 +3,4 @@
   apt: pkg=linux-headers-${ansible_kernel}
 
 - name: reboot the servers
-  command: /sbin/reboot now
+  command: /sbin/reboot

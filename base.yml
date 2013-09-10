@@ -8,7 +8,6 @@
   tasks:
     - include: server-essentials.yml
     - include: security.yml
-    # - include: platform.yml
     - include: finalize.yml
 
   handlers:

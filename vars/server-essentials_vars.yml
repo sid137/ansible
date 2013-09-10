@@ -15,6 +15,7 @@ server_packages:
   - coreutils
   - curl
   - debconf-utils
+  - fail2ban
   - flex
   - g++
   - git-core
@@ -37,6 +38,7 @@ server_packages:
   - libxslt1-dev
   - libxslt1.1
   - mercurial
+  - mosh
   - ntp
   - patch
   - python-virtualenv
@@ -45,6 +47,7 @@ server_packages:
   - ssl-cert
   - subversion
   - sudo
+  - unattended-upgrades
   - unrar-free
   - unzip
   - vim-nox

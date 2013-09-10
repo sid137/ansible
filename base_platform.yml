@@ -1,0 +1,9 @@
+---
+- hosts: $hosts
+  sudo: yes
+  # accelerate: true 
+  vars_files:
+    - vars/server-essentials_vars.yml
+
+  tasks:
+    - include: platform.yml

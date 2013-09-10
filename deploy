@@ -1,0 +1,6 @@
+#!/bin/bash 
+
+hosts=$1
+playbook=$2
+
+ansible-playbook -e "hosts=$hosts" $playbook $3

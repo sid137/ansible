@@ -1,0 +1,8 @@
+[roger]
+voice.rogervoice.com 
+
+[roger:vars]
+ansible_ssh_user=root
+
+[vagrant]
+192.168.33.10 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant

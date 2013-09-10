@@ -28,10 +28,6 @@
   copy: content="%$user_name ALL=NOPASSWD:ALL" dest="/etc/sudoers.d/$user_name" validate='visudo -cf %s'
         mode=0440 owner=root group=root
 
-# - name: Copy ssh key for user:$user_name
-#   copy: src=files/authorized_keys dest="/home/$user_name/.ssh/authorized_keys" 
-#         mode=0600 owner=$user_name group=$user_group
-
-- name: Copy ssh key for user:$user_name
-  authorized_key: user=$user_name key=$item
+- name: copy ssh key for user
+  authorized_key: user=$user_name key='$item'
   with_file: $user_authorized_key
