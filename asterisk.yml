@@ -92,4 +92,4 @@
   with_items: $asterisk_directories
 
 - name: start asterisk
-  service: asterisk start
+  service: name=asterisk state=started
