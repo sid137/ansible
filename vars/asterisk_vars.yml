@@ -25,18 +25,20 @@ asterisk_directories:
   - $asterisk_samples
 
 asterisk_packages:
-  - libgmime-2.6-dev
-  - libgmime-2.6-0
-  - libsrtp0
-  - libsrtp0-dev
-  - sox
-  - libsox-fmt-all
-  - speex
-  - ngrep
   - fail2ban
   - iptables
-  - snmp
-  - libsnmp-dev
-  - snmpd
+  - libgmime-2.6-0
+  - libgmime-2.6-dev
   - libiksemel-dev
+  - libsnmp-dev
+  - libsox-fmt-all
+  - libsrtp0
+  - libsrtp0-dev
   - libssl-dev
+  - ngrep
+  - snmp
+  - snmpd
+  - sox
+  - speex
+  - uuid-dev
+  - uuid-runtime

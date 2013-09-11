@@ -1,0 +1,4 @@
+---
+- include: base.yml
+- include: base_platform.yml
+- include: base_asterisk.yml

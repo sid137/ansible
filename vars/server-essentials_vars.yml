@@ -20,6 +20,7 @@ server_packages:
   - g++
   - git-core
   - help2man
+  - iptables
   - libbz2-dev
   - libc6
   - libcurl4-openssl-dev
@@ -50,6 +51,8 @@ server_packages:
   - unattended-upgrades
   - unrar-free
   - unzip
+  - uuid-dev
+  - uuid-runtime
   - vim-nox
   - wget
   - zlib1g

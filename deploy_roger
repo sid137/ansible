@@ -1,0 +1,4 @@
+#!/bin/bash 
+
+hosts=$1
+ansible-playbook -e "hosts=$hosts" rogervoice.yml $2
