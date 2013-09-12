@@ -1,0 +1,29 @@
+---
+- name: pg
+  debug: msg="starting"
+  tags: pg
+
+- name: create asterisk user for postgres
+  sudo_user: postgres
+  postgresql_user: name=$asterisk_postgres_user password=$asterisk_postgres_user_password role_attr_flags=CREATEDB 
+
+- name: create asterisk database
+  sudo_user: postgres
+  postgresql_db: name=$asterisk_database_name owner=$asterisk_postgres_user encoding='UTF-8' 
+
+- name: allow remote connections
+  lineinfile: dest=/etc/postgresql/9.1/main/postgresql.conf state=present 
+    regexp='^#?listen_addresses\s*='
+    line="listen_addresses ='*'"
+  notify: restart postgresql
+
+- name: copy odbc ini
+  copy: dest=/etc/odbc.ini src=files/odbc.ini mode=0755 owner=root group=root
+
+# - name: create asterisk database
+# postgresql_db: name=asterisk
+  
+# - name: create CDR tables
+# Set up CDR 
+# Set up CEL
+# Set up 

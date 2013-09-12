@@ -13,3 +13,7 @@
   handlers:
     - name: restart ssh
       service: name=ssh state=restarted
+
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted

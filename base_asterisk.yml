@@ -8,6 +8,7 @@
 
   tasks:
     - include: asterisk.yml
+    - include: asterisk_databases.yml
 
   handlers:
     - name: restart dahdi

@@ -91,5 +91,12 @@
   file: path=$item group=$asterisk_group owner=$asterisk_user recurse=yes state=directory
   with_items: $asterisk_directories
 
+# Set cron job to remove verbose every month or two
+#
+#
 - name: start asterisk
   service: name=asterisk state=started
+
+
+# Logging 
+#   for interface, make sure to capture callID for debugging

@@ -41,6 +41,7 @@ server_packages:
   - mercurial
   - mosh
   - ntp
+  - odbc-postgresql
   - patch
   - python-virtualenv
   - screen
@@ -49,6 +50,8 @@ server_packages:
   - subversion
   - sudo
   - unattended-upgrades
+  - unixodbc
+  - unixodbc-dev
   - unrar-free
   - unzip
   - uuid-dev

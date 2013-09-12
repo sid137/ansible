@@ -3,4 +3,8 @@
   apt_repository: repo='ppa:pitti/postgresql'
 
 - name: Install postgres packages
-  apt: pkg=postgresql,postgresql-client,postgresql-contrib,postgresql-doc,libpq-dev
+  apt: pkg=postgresql,postgresql-client,postgresql-contrib,postgresql-doc,libpq-dev,python-psycopg2
+
+- name: create postgres cluster
+  shell: pg_createcluster --start -e UTF-8 9.1 main
+    creates=/etc/postgresql/9.1/main/postgresql.conf

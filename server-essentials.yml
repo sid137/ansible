@@ -10,6 +10,9 @@
   apt: pkg=$item force=yes
   with_items: $server_packages
 
+- name: reconfigure locales
+  command: dpkg-reconfigure locales
+
 - name: create swap file
   script: scripts/create_swapfile.sh
 

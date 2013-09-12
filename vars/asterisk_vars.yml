@@ -15,6 +15,9 @@ dahdi_version: 2.7.0+2.7.0
 dahdi_source: $asterisk_source_root/dahdi/$dahdi_version
 dahdi_archive: http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/releases/dahdi-linux-complete-$dahdi_version.tar.gz
 
+asterisk_database_name: asterisk
+asterisk_postgres_user: asterisk
+asterisk_postgres_user_password: password
 
 asterisk_directories:
   - $astvarlibdir
