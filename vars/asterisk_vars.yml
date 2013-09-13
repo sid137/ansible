@@ -28,12 +28,18 @@ asterisk_directories:
   - $asterisk_samples
 
 asterisk_packages:
+  - alsa
   - fail2ban
+  - jackd
   - iptables
+  - libffado-dev
+  - libflac-dev
   - libgmime-2.6-0
   - libgmime-2.6-dev
   - libiksemel-dev
+  - libsamplerate0-dev
   - libsnmp-dev
+  - libsndfile1-dev
   - libsox-fmt-all
   - libsrtp0
   - libsrtp0-dev

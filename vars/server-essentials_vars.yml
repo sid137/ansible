@@ -43,12 +43,15 @@ server_packages:
   - ntp
   - odbc-postgresql
   - patch
+  - python-dev
+  - python-numpy
   - python-virtualenv
   - screen
   - software-properties-common
   - ssl-cert
   - subversion
   - sudo
+  - swig
   - unattended-upgrades
   - unixodbc
   - unixodbc-dev
